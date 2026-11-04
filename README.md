@@ -1,17 +1,9 @@
 # Codyssey Development Workstation
 
-> 경남 코디세이 개발 워크스테이션 구축 실습 · **2026년 11월 4일**  
-> **자료 기준:** 실제 PowerShell 로그 11개와 화면 캡처 25장  
-> **검증 기준:** 실제 명령 출력 또는 사진이 있는 항목만 완료로 표시. 로컬에 생성한 새 로그 3개는 업로드되지 않아 이 묶음에 포함하지 않음.  
-> `[추가 필요]`는 아직 제출 증거가 없거나 확인이 더 필요한 부분입니다.
 
-## 1. 프로젝트 개요
 
-Windows의 **Visual Studio Code와 PowerShell**을 이용해 개발용 작업 폴더를 만들고, **Docker, Ubuntu, NGINX, Git, GitHub**를 실습했다. 실제 명령어·출력·오류 해결 과정을 로그와 사진으로 남겨 다른 사람이 작업을 이해하고 따라 할 수 있도록 정리했다.
 
-이번 실습의 핵심은 **프로그램을 실행하는 것뿐 아니라, 실행 과정과 결과를 증명하는 것**이다.
-
-## 2. 사용 환경
+## 1. 사용 환경
 
 | 항목 | 확인된 환경 |
 |---|---|
@@ -23,13 +15,13 @@ Windows의 **Visual Studio Code와 PowerShell**을 이용해 개발용 작업 �
 | 웹 서버 | `nginx:alpine` 기반 커스텀 이미지 `codyssey-web:v1` |
 | Git 브랜치 | `main` |
 | Git 버전 | **2.56.0.windows.4** (`git --version` 결과 사진 확인) |
-| GitHub | [hyeonla906/codyssey-workstation](https://github.com/hyeonla906/codyssey-workstation) — 저장소 생성·원격 주소 설정 확인, **업로드 성공은 별도 확인 필요** |
+| GitHub | [hyeonla906/codyssey-workstation](https://github.com/hyeonla906/codyssey-workstation) — 저장소 생성·원격 주소 설정 확인, 
 
 ![Docker 버전과 Client 정보](screenshots/05-docker-client.png)
 
 ![Docker Server 정보](screenshots/05-docker-server.png)
 
-## 3. 전체 실습 현황
+## 2. 전체 실습 현황
 
 - [x] 터미널로 파일 만들기·복사·이동·삭제
 - [x] Linux 파일 권한 `600`, `644` 확인
@@ -48,11 +40,11 @@ Windows의 **Visual Studio Code와 PowerShell**을 이용해 개발용 작업 �
 - [x] 컨테이너 삭제 후 볼륨 데이터(`SAVE-OK`) 재확인 사진 확보
 - [ ] **[추가 필요]** GitHub 공개 전 사진·로그 개인정보 점검
 
-## 4. 프로젝트 폴더 및 PowerShell 실습
+## 3. 프로젝트 폴더 및 실습
 
-### 목적
 
-터미널에서 현재 위치를 알아보고 폴더와 파일을 만들어 복사·이동·이름 변경·삭제하는 방법을 익혔다.
+
+터미널로 파일 만들기·복사·이동·삭제 방법 
 
 ### 주요 명령어
 
@@ -86,7 +78,7 @@ cd ..\..
 
 > **[추가 필요]** 프로젝트 최상위 폴더를 처음 생성한 `00-setup.txt`는 제공 자료에 없다. 폴더 구조는 사진으로 확인했지만 최초 생성 명령 기록은 별도 확인이 필요하다.
 
-## 5. Linux 파일과 폴더 권한
+## 4. Linux 파일과 폴더 권한
 
 ### 목적
 
@@ -143,7 +135,7 @@ drwxr-xr-x 2 root root 4096 Nov  4 05:24 /testdir
 
 > 위 추가 검증의 증거는 **사용자가 추가로 제공한 실제 화면 캡처**다. 별도 `02-permissions-recheck.txt` 로그는 아직 전달되지 않았으므로, 새 로그가 있는 것처럼 표시하지 않았다.
 
-## 6. Docker 기본 점검과 컨테이너 운영
+## 5. Docker 기본 점검과 컨테이너 운영
 
 ### Docker 버전 및 엔진 확인
 
@@ -185,7 +177,7 @@ docker stats --no-stream
 
 [컨테이너 실습 로그](logs/verified/04-containers.txt)
 
-## 7. HTML 및 Dockerfile 제작
+## 6. HTML 및 Dockerfile 제작
 
 ### HTML
 
@@ -215,7 +207,7 @@ EXPOSE 80
 
 [파일 작성 및 내용 확인 로그](logs/verified/05-files.txt)
 
-## 8. Docker 이미지 빌드와 웹 서버 접속
+## 7. Docker 이미지 빌드와 웹 서버 접속
 
 ### 실행 명령
 
@@ -245,7 +237,7 @@ docker stats --no-stream
 
 [웹 서버 실습 로그](logs/verified/06-webserver.txt)
 
-## 9. 바인드 마운트 — 웹페이지 변경 전후 비교
+## 8. 바인드 마운트 — 웹페이지 변경 전후 비교
 
 ### 목적
 
@@ -278,7 +270,7 @@ Copy-Item .\practice\index-backup.html .\app\index.html -Force
 
 > 변경 후 `curl.exe`의 본문 출력은 제공된 로그에서 비어 있지만, **브라우저 변경 전후 사진**이 추가 증거를 제공한다.
 
-## 10. Docker 볼륨 — 컨테이너 삭제 후 데이터 유지
+## 9. Docker 볼륨 — 컨테이너 삭제 후 데이터 유지
 
 ### 실행 명령
 
@@ -324,17 +316,17 @@ SAVE-OK
 
 기존 컨테이너는 사라졌지만 파일 내용이 남아 있으므로 **Docker 볼륨의 데이터 유지(영속성)가 확인됐다.**
 
-![컨테이너 삭제 확인 및 새 컨테이너에서 SAVE-OK 재확인](screenshots/17-volume-after.png)
+![컨테이너 삭제 확인 및 새 컨테이너에서 SAVE-OK 재확인-](screenshots/17-volume-after.png)
 
 > 추가 화면 사진은 확인됐지만 별도 `08-volume-recheck.txt` 파일 원본은 이 채팅에 업로드되지 않았다. 처음 실습 로그에는 컨테이너 삭제와 이후 `SAVE-OK` 확인 과정이 남아 있다.
 
 [볼륨 실습 로그 — 삭제 후 SAVE-OK 출력 포함](logs/verified/08-volume.txt)
 
-## 11. 트러블슈팅 2건
+## 10. 트러블슈팅 2건
 
 두 오류는 **실수를 재현하고 해결 방법을 확인한 실습**으로 정리했다.
 
-### 11-1. 컨테이너 이름 오타
+### 10-1. 컨테이너 이름 오타
 
 ```powershell
 docker logs codyssey-weeb
@@ -347,7 +339,7 @@ docker logs codyssey-web
 
 ![컨테이너 이름 오류와 해결](screenshots/18-error-name.png)
 
-### 11-2. 파일 경로 오타
+### 10-2. 파일 경로 오타
 
 ```powershell
 docker exec codyssey-web ls /usr/nginx/html
@@ -362,9 +354,9 @@ docker exec codyssey-web cat /usr/share/nginx/html/index.html
 
 [트러블슈팅 상세 보고서](logs/troubleshooting.md) · [실제 오류 기록](logs/verified/09-troubleshooting.txt)
 
-## 12. Git과 GitHub 저장소 연결
+## 11. Git과 GitHub 저장소 연결
 
-### Git 설치 버전 확인 (2026-11-04)
+### Git 설치 버전 확인 
 
 ```powershell
 git --version
@@ -409,7 +401,7 @@ git remote -v
 
 > `a/` 폴더에는 과제 자료가 중첩되어 있다. 내부 내용 확인 및 백업 전에는 삭제하지 않고, 업로드할 때는 필요한 경로만 선택해 추가한다.
 
-## 13. 다른 컴퓨터에서 웹 서버 실행하기
+## 12. 다른 컴퓨터에서 웹 서버 실행하기
 
 Docker Desktop을 Linux 컨테이너 모드로 켠 뒤 PowerShell에서 실행한다.
 
@@ -424,7 +416,7 @@ curl.exe http://localhost:8080
 브라우저 접속: `http://localhost:8080`  
 **[추가 필요]** GitHub에 프로젝트 파일을 올린 뒤 다른 위치에서도 이 방법이 작동하는지 확인한다. 같은 컨테이너 이름이나 8080 포트가 이미 사용 중인 경우 충돌을 먼저 해결해야 한다.
 
-## 14. 배운 점
+## 13. 배운 점
 
 - **절대 경로:** 파일의 전체 주소.
 - **상대 경로:** 지금 있는 폴더를 기준으로 쓴 주소.
@@ -436,7 +428,7 @@ curl.exe http://localhost:8080
 - **Docker 볼륨:** 컨테이너와 별도로 데이터를 저장하는 공간.
 - **Git / GitHub:** 파일의 변경 기록 관리 / 그 기록을 인터넷에서 보관·공유.
 
-## 15. 제출 전 직접 채워야 할 것
+## 14. 제출 전 직접 채워야 할 것
 
 - [x] Linux 폴더 `755` 최종 출력이 보이는 사진 및 검증 결과 추가 완료
 - [x] 컨테이너 삭제 **후** `SAVE-OK` 출력 화면 사진까지 확인
@@ -445,11 +437,9 @@ curl.exe http://localhost:8080
 - [ ] **[추가 필요]** GitHub에서 실제 파일이 보이는 최종 저장소 사진
 - [ ] **[추가 필요]** 최초 프로젝트 폴더 생성 로그 `00-setup.txt`가 있다면 추가
 - [ ] **[추가 필요]** 공개 전 PowerShell 기록 및 사진의 사용자 이름, 컴퓨터 이름, 경로 등 개인정보 확인
-- [ ] **[추가 필요]** GitHub에 `README.md`, `Dockerfile`, `app/index.html`, `logs/`, `screenshots/`가 올라왔는지 검사
+- [ ] **[추가 필요]** GitHub에 `README.md`, `Dockerfile`, `app/index.html`, `logs/`, `screenshots/`가 올라왔는지 검
 
-> **개인정보 안내:** 첨부 PowerShell 로그 원본에는 로컬 Windows 사용자 이름과 컴퓨터 이름이 포함돼 있다. 이 자료 묶음의 **로그 복사본은 해당 로컬 식별자 일부를 `[LOCAL_USER]`, `[LOCAL_MACHINE]` 등으로 바꿨다.** 사진은 원본 화면을 그대로 담았으므로 공개 전에 직접 확인·가림 처리해야 한다. 이 자료는 개인정보가 완전히 제거된 공개용 패키지가 아니다.
-
-## 16. 최종 정리
+## 15. 최종 정리
 
 **확인된 작업:** 파일 관리, Linux 파일 권한 `600`·`644`와 폴더 권한 `700`·`755` 검증, Docker 29.9.2 실행, Ubuntu/hello-world, NGINX 이미지 빌드, 8080 웹 접속, 8081 바인드 마운트 변경 전·후, 컨테이너 삭제 후 볼륨 데이터 유지(원본 로그와 재검증 사진), 트러블슈팅 2건, Git `main` 및 GitHub 원격 주소 설정.
 
