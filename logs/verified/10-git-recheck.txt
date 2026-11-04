@@ -282,3 +282,18 @@ PS C:\Users\dlals26842658053\codyssey-workstation> git add -- README.md screensh
 
 PS C:\Users\dlals26842658053\codyssey-workstation> git status
 
+PS C:\Users\dlals26842658053\codyssey-workstation> git add -A -- README.md Dockerfile .gitignore app logs practice screenshots
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git diff --cached --name-only
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git commit -m "Complete Codyssey workstation project"
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git push -u origin main
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git status
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Stop-Transcript
+**********************
+Windows PowerShell 기록 끝
+종료 시간: 20261104195948
+**********************
