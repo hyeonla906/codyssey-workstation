@@ -1,0 +1,284 @@
+﻿**********************
+Windows PowerShell 기록 시작
+시작 시간: 20261104191303
+사용자 이름: GNIA\dlals26842658053
+RunAs 사용자: GNIA\dlals26842658053
+구성 이름: 
+Machine: GNIA-C202-E05 (Microsoft Windows NT 10.0.26300.0)
+호스트 응용 프로그램: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Program Files\Microsoft VS Code\261c84cb1e\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+프로세스 ID: 19280
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+기록이 시작되었습니다. 출력 파일은 .\logs\verified\10-git-recheck.txt입니다.
+PS C:\Users\dlals26842658053\codyssey-workstation> git --version
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git branch --show-current
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git status
+
+PS C:\Users\dlals26842658053\codyssey-workstation> pwd
+
+Path
+----
+C:\Users\dlals26842658053\codyssey-workstation
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem .\a -Force
+
+
+    디렉터리: C:\Users\dlals26842658053\codyssey-workstation\a
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2026-11-04   오후 5:33                codyssey-workstation
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git restore -- .
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git status
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem .\a -Force
+
+
+    디렉터리: C:\Users\dlals26842658053\codyssey-workstation\a
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2026-11-04   오후 5:33                codyssey-workstation
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem .\a -Recurse -File | Select-Object -ExpandProperty FullName
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\README.md
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\tmp..txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\.gitignore
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\Dockerfile
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\README.md
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\app\index.html
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\troubleshooting.md
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\01-terminal.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\02-permissions.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\03-docker.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\04-containers.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\05-files.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\06-webserver.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\07-bind.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\08-volume.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\09-troubleshooting-report.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\09-troubleshooting.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\11-github-setup.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\practice\index-backup.html
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\practice\lesson1\empty.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\practice\lesson1\hello.txt
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-Item .\README.md | Select-Object Name,Length,LastWriteTime
+
+Name      Length LastWriteTime
+----      ------ -------------
+README.md      0 2026-11-04 오후 7:15:02
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem .\a -Force
+
+
+    디렉터리: C:\Users\dlals26842658053\codyssey-workstation\a
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2026-11-04   오후 5:33                codyssey-workstation
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem .\a -Recurse -File | Select-Object -ExpandProperty FullName
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\README.md
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\tmp..txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\.gitignore
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\Dockerfile
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\README.md
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\app\index.html
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\troubleshooting.md
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\01-terminal.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\02-permissions.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\03-docker.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\04-containers.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\05-files.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\06-webserver.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\07-bind.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\08-volume.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\09-troubleshooting-report.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\09-troubleshooting.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\logs\verified\11-github-setup.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\practice\index-backup.html
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\practice\lesson1\empty.txt
+C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be\practice\lesson1\hello.txt
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-Item .\README.md | Select-Object Name,Length,LastWriteTime
+
+Name      Length LastWriteTime
+----      ------ -------------
+README.md      0 2026-11-04 오후 7:15:02
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-Item .\a\codyssey-workstation\README.md | Select-Object Name,Length,LastWriteTime
+
+Name      Length LastWriteTime
+----      ------ -------------
+README.md     58 2026-11-04 오후 5:26:11
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-Content .\a\codyssey-workstation\README.md -Encoding UTF8 -TotalCount 15
+# codyssey-workstation
+Codyssey development workstation
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-Item .\a\codyssey-workstation\be\README.md | Select-Object Name,Length,LastWriteTime
+
+Name      Length LastWriteTime
+----      ------ -------------
+README.md      0 2026-11-04 오후 2:14:13
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-Content .\a\codyssey-workstation\be\README.md -Encoding UTF8 -TotalCount 15
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem .\screenshots -File | Measure-Object
+Get-ChildItem : 'C:\Users\dlals26842658053\codyssey-workstation\screenshots' 경로는 존재하지 않으므로 찾을 수 없습니다.
+위치 줄:1 문자:1
++ Get-ChildItem .\screenshots -File | Measure-Object
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\dlals2...ion\screenshots:String) [Get-ChildItem], ItemNotFoundEx
+ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+Get-ChildItem : 'C:\Users\dlals26842658053\codyssey-workstation\screenshots' 경로는 존재하지 않으므로 찾을 수
+없습니다.
+위치 줄:1 문자:1
++ Get-ChildItem .\screenshots -File | Measure-Object
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\dlals2...ion\screenshots:String) [Get-ChildItem], Ite
+   mNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+
+
+
+Count    : 0
+Average  :
+Sum      :
+Maximum  :
+Minimum  :
+Property :
+
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem .\screenshots -File | Measure-Object
+Get-ChildItem : 'C:\Users\dlals26842658053\codyssey-workstation\screenshots' 경로는 존재하지 않으므로 찾을 수 없습니다.
+위치 줄:1 문자:1
++ Get-ChildItem .\screenshots -File | Measure-Object
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\dlals2...ion\screenshots:String) [Get-ChildItem], ItemNotFoundEx
+ception
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+Get-ChildItem : 'C:\Users\dlals26842658053\codyssey-workstation\screenshots' 경로는 존재하지 않으므로 찾을 수
+없습니다.
+위치 줄:1 문자:1
++ Get-ChildItem .\screenshots -File | Measure-Object
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : ObjectNotFound: (C:\Users\dlals2...ion\screenshots:String) [Get-ChildItem], Ite
+   mNotFoundException
+    + FullyQualifiedErrorId : PathNotFound,Microsoft.PowerShell.Commands.GetChildItemCommand
+
+
+
+Count    : 0
+Average  :
+Sum      :
+Maximum  :
+Minimum  :
+Property :
+
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem -Path . -Directory -Recurse -Filter screenshots
+
+
+    디렉터리: C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2026-11-04   오후 2:13                screenshots
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> New-Item -ItemType Directory -Path .\screenshots -Force
+
+
+    디렉터리: C:\Users\dlals26842658053\codyssey-workstation
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2026-11-04   오후 7:18                screenshots
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem -Force
+
+
+    디렉터리: C:\Users\dlals26842658053\codyssey-workstation
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d--h--      2026-11-04   오후 7:15                .git
+d-----      2026-11-04   오후 5:26                a
+d-----      2026-11-04   오후 7:15                app
+d-----      2026-11-04   오후 7:15                logs
+d-----      2026-11-04   오후 7:15                practice
+d-----      2026-11-04   오후 7:18                screenshots
+-a----      2026-11-04   오후 7:15              0 .gitignore
+-a----      2026-11-04   오후 7:15             90 Dockerfile
+-a----      2026-11-04   오후 7:15              0 README.md
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> (Get-ChildItem .\screenshots -File).Count
+24
+PS C:\Users\dlals26842658053\codyssey-workstation> Get-ChildItem -Path . -Directory -Recurse -Filter screenshots
+
+
+    디렉터리: C:\Users\dlals26842658053\codyssey-workstation
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2026-11-04   오후 7:19                screenshots
+
+
+    디렉터리: C:\Users\dlals26842658053\codyssey-workstation\a\codyssey-workstation\be
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----      2026-11-04   오후 2:13                screenshots
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> (Get-ChildItem .\screenshots -File).Count
+24
+PS C:\Users\dlals26842658053\codyssey-workstation> pwd
+
+Path
+----
+C:\Users\dlals26842658053\codyssey-workstation
+
+
+PS C:\Users\dlals26842658053\codyssey-workstation> (Get-Item .\README.md).Length
+20051
+PS C:\Users\dlals26842658053\codyssey-workstation> (Get-ChildItem .\screenshots -File).Count
+25
+PS C:\Users\dlals26842658053\codyssey-workstation> git branch --show-current
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git remote -v
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git add -- README.md screenshots/
+
+PS C:\Users\dlals26842658053\codyssey-workstation> git status
+
