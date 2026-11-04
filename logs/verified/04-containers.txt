@@ -1,0 +1,59 @@
+﻿**********************
+Windows PowerShell 기록 시작
+시작 시간: 20261104144614
+사용자 이름: GNIA\dlals26842658053
+RunAs 사용자: GNIA\dlals26842658053
+구성 이름: 
+Machine: GNIA-C202-E05 (Microsoft Windows NT 10.0.26300.0)
+호스트 응용 프로그램: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Program Files\Microsoft VS Code\261c84cb1e\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+프로세스 ID: 17424
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+기록이 시작되었습니다. 출력 파일은 .\logs\verified\04-containers.txt입니다.
+PS C:\Users\dlals26842658053\codyssey-workstation> docker pull ubuntu
+Using default tag: latest
+latest: Pulling from library/ubuntu
+Digest: sha256:6a06111c3b0a8600feadb270aec771dc239bf407b25625f93f44ab00e11f4d3c
+Status: Image is up to date for ubuntu:latest
+docker.io/library/ubuntu:latest
+PS C:\Users\dlals26842658053\codyssey-workstation> docker run hello-world
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+PS C:\Users\dlals26842658053\codyssey-workstation> docker run -it --name ubuntu-practice ubuntu bash
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker images
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker ps
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker ps -a
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker run -d --name ubuntu-running ubuntu sleep infinity
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker ps
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker exec ubuntu-running echo Hello-from-exec
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker stop ubuntu-running
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker ps -a
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker start ubuntu-running
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker logs ubuntu-running
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker stats --no-stream
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Stop-Transcript
+**********************
+Windows PowerShell 기록 끝
+종료 시간: 20261104145413
+**********************

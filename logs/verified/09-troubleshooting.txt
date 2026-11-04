@@ -1,0 +1,48 @@
+﻿**********************
+Windows PowerShell 기록 시작
+시작 시간: 20261104153940
+사용자 이름: GNIA\dlals26842658053
+RunAs 사용자: GNIA\dlals26842658053
+구성 이름: 
+Machine: GNIA-C202-E05 (Microsoft Windows NT 10.0.26300.0)
+호스트 응용 프로그램: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Program Files\Microsoft VS Code\261c84cb1e\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+프로세스 ID: 17424
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+기록이 시작되었습니다. 출력 파일은 .\logs\verified\09-troubleshooting.txt입니다.
+PS C:\Users\dlals26842658053\codyssey-workstation> docker logs codyssey-weeb
+Error response from daemon: No such container: codyssey-weeb
+PS C:\Users\dlals26842658053\codyssey-workstation> docker ps -a
+                         ubuntu-running
+4f4cd868f7cd   ubuntu            "bash"                    52 minutes ago      Exited (0) 49 minutes ago
+                         ubuntu-practice
+46f46c6c645a   hello-world       "/hello"                  53 minutes ago      Exited (0) 53 minutes ago
+                         cranky_leakey
+78fe639571ec   ubuntu            "sleep infinity"          About an hour ago   Exited (137) About an hour ago
+                         permission-lab
+PS C:\Users\dlals26842658053\codyssey-workstation> docker logs codyssey-web
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker exec codyssey-web cat /wrong/index.html
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker exec codyssey-web cat /wrong/index.htnl
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker exec codyssey-web ls /usr/share/nginx/hnml
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker exec codyssey-web ls /usr/nginx/html
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker exec codyssey-web ls /usr/share/nginx/html
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker exec codyssey-web cat /usr/share/nginx/html/index.html
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Stop-Transcript
+**********************
+Windows PowerShell 기록 끝
+종료 시간: 20261104160504
+**********************

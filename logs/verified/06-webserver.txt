@@ -1,0 +1,65 @@
+﻿**********************
+Windows PowerShell 기록 시작
+시작 시간: 20261104152020
+사용자 이름: GNIA\dlals26842658053
+RunAs 사용자: GNIA\dlals26842658053
+구성 이름: 
+Machine: GNIA-C202-E05 (Microsoft Windows NT 10.0.26300.0)
+호스트 응용 프로그램: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -noexit -command try { . "c:\Program Files\Microsoft VS Code\261c84cb1e\resources\app\out\vs\workbench\contrib\terminal\common\scripts\shellIntegration.ps1" } catch {}
+프로세스 ID: 17424
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+기록이 시작되었습니다. 출력 파일은 .\logs\verified\06-webserver.txt입니다.
+PS C:\Users\dlals26842658053\codyssey-workstation> docker build -t codyssey-web:v1 .
+ => => transferring context: 685B                                                                                 0.0s
+ => [1/2] FROM docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2ae  1.9s
+ => => resolve docker.io/library/nginx:alpine@sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2ae  0.0s
+ => => sha256:b9b388a21ecfde6ac80505f23f527146a2129dfb104e79b029bbd00d4cc1a919 20.53MB / 20.53MB                  1.5s
+ => => sha256:9b0f7dfe35b2711a17f60dadd6d4035dc0cdee152538cc5c0987029e94679548 1.40kB / 1.40kB                    0.5s
+ => => sha256:2ec5fb117ffa9a78b15fb6a78745ffc569c8da0aee9f36ace4cd67a44b1fef79 1.21kB / 1.21kB                    0.6s
+ => => sha256:26185d08a3ec318dd85a6c9f2172e714ec13cececd7f33c533b40b1689f9fedb 404B / 404B                        0.7s
+ => => sha256:7cc330898115ce55acccb0cc1e7dd091df4410c8c5f3c540710ee0ac689f5fcb 964B / 964B                        0.2s
+ => => sha256:657023555a2a19dc6036468198bb350d2c7feaac7f2d0a3901b4dd3cb25e40c5 629B / 629B                        0.2s
+ => => sha256:12b85cff06fd7d383d36a9c96503fe049c9d4bf3dfda5cbb9ffa6ae99b9c07a6 1.94MB / 1.94MB                    0.4s
+ => => sha256:7b229517ed222597277036d94892173207d01a731ab3a88eeb1de2e963a2c788 3.85MB / 3.85MB                    0.5s
+ => => extracting sha256:7b229517ed222597277036d94892173207d01a731ab3a88eeb1de2e963a2c788                         0.1s
+ => => extracting sha256:12b85cff06fd7d383d36a9c96503fe049c9d4bf3dfda5cbb9ffa6ae99b9c07a6                         0.1s
+ => => extracting sha256:657023555a2a19dc6036468198bb350d2c7feaac7f2d0a3901b4dd3cb25e40c5                         0.0s
+ => => extracting sha256:7cc330898115ce55acccb0cc1e7dd091df4410c8c5f3c540710ee0ac689f5fcb                         0.0s
+ => => extracting sha256:26185d08a3ec318dd85a6c9f2172e714ec13cececd7f33c533b40b1689f9fedb                         0.0s
+ => => extracting sha256:2ec5fb117ffa9a78b15fb6a78745ffc569c8da0aee9f36ace4cd67a44b1fef79                         0.0s
+ => => extracting sha256:9b0f7dfe35b2711a17f60dadd6d4035dc0cdee152538cc5c0987029e94679548                         0.0s
+ => => extracting sha256:b9b388a21ecfde6ac80505f23f527146a2129dfb104e79b029bbd00d4cc1a919                         0.2s
+ => [2/2] COPY app/index.html /usr/share/nginx/html/index.html                                                    0.0s
+ => exporting to image                                                                                            0.6s
+ => => exporting layers                                                                                           0.1s
+ => => exporting manifest sha256:f02177ee35d16bf209312510e679cb81cbd3891803b752b628b4adf7061dcd8e                 0.0s
+ => => exporting config sha256:8f3ead0119934e1648ff43a2d830fc931ef4543d52726202713bb08f3adde71e                   0.0s
+ => => exporting attestation manifest sha256:5569712fa30691e4b5ba47e0919660f9004350cc369ca40b7ffd2582971b1986     0.0s
+ => => exporting manifest list sha256:6d02b71558dec14f9ee6ca2ff8e82222f9a0d9be8aca37a64474359aa45d56ee            0.0s
+ => => naming to docker.io/library/codyssey-web:v1                                                                0.0s
+ => => unpacking to docker.io/library/codyssey-web:v1                                                             0.4s
+PS C:\Users\dlals26842658053\codyssey-workstation> docker images
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker run -d --name codyssey-web -p 8080:80 codyssey-web:v1
+
+PS C:\Users\dlals26842658053\codyssey-workstation> curl.exe http://localhost:8080
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker ps
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker logs codyssey-web
+
+PS C:\Users\dlals26842658053\codyssey-workstation> docker stats --no-stream
+
+PS C:\Users\dlals26842658053\codyssey-workstation> Stop-Transcript
+**********************
+Windows PowerShell 기록 끝
+종료 시간: 20261104152648
+**********************
