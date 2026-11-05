@@ -1,49 +1,74 @@
 트러블슈팅 기록
 
-문제 2. 컨테이너 내부 파일 경로 입력 오류
+## 문제 1. 컨테이너 이름을 잘못 입력함
 
-1. 문제 상황
+### 1. 문제 상황
 
-Docker 컨테이너 내부의 웹 서버 파일을 확인하는 과정에서 경로를 잘못 입력하여 오류가 발생했다.
+Docker 컨테이너의 로그를 확인하는 과정에서 실제 컨테이너 이름과 다르게 입력하여 오류를 재현했다.
 
-잘못 입력한 명령어 (오류 메시지를 기준으로 재구성)
+**잘못 입력한 명령어**
 
-docker exec codyssey-web ls /usr/nginx/html
+```bash
+docker logs codyssey-weeb
+```
 
-오류 메시지
+**실제 오류 메시지**
 
-ls: /usr/nginx/html: No such file or directory
+```text
+Error response from daemon: No such container: codyssey-weeb
+```
 
-2. 원인 확인
+### 2. 원인 가설
 
-처음에는 파일이 없는 것으로 생각했지만, 경로에 share가 빠졌을 가능성이 있다고 판단했다.
+Docker가 해당 컨테이너를 찾지 못하는 것을 확인했다.
 
-3. 해결 방법
+컨테이너가 삭제되었거나 이름을 잘못 입력했을 가능성이 있다고 생각했다.
 
-올바른 경로로 다시 확인했다.
+### 3. 확인 과정
 
-docker exec codyssey-web ls /usr/share/nginx/html
+실제 컨테이너의 이름을 확인하기 위해 다음 명령어를 실행했다.
 
-이후 실제 HTML 파일의 내용을 확인했다.
+```bash
+docker ps -a
+```
 
-docker exec codyssey-web cat /usr/share/nginx/html/index.html
+**확인 결과 (관련 항목 발췌)**
 
-4. 최종 결과
+```text
+CONTAINER ID   IMAGE             NAMES
+57989477c60c   codyssey-web:v1   codyssey-web
+```
 
-index.html 파일의 내용이 정상적으로 출력되었다.
+실제 컨테이너 이름이 `codyssey-weeb`이 아니라 `codyssey-web`이라는 것을 확인했다.
 
-실제 출력 중 일부
+### 4. 해결 방법
 
-<h1>안녕하세요! 코디세이입니다.</h1>
-<p>Docker 웹 서버 실행 성공!</p>
-<p>내가 만든 첫 번째 웹사이트</p>
+올바른 컨테이너 이름을 사용하여 로그를 다시 확인했다.
 
-5. 배운 점
+```bash
+docker logs codyssey-web
+```
 
-컨테이너 내부에서 파일을 찾을 수 없다는 오류가 발생하면 파일이 없는 것인지, 경로를 잘못 입력한 것인지 먼저 확인해야 한다는 것을 배웠다.
+### 5. 최종 결과
 
-이번에는 올바른 경로를 입력하여 HTML 파일이 정상적으로 존재하는 것을 확인했다.
-최종 결과
+**실제 로그 출력 중 일부**
+
+```text
+/docker-entrypoint.sh: Configuration complete; ready for start up
+```
+
+```text
+"GET / HTTP/1.1" 200 615
+```
+
+컨테이너의 로그가 정상적으로 출력되었으며, 웹 서버 접속 요청에 대한 HTTP 200 응답도 확인했다.
+
+### 6. 배운 점
+
+Docker 명령어를 사용할 때 컨테이너 이름을 정확하게 입력하는 것이 중요하다는 것을 배웠다.
+
+컨테이너를 찾을 수 없다는 오류가 발생하면 `docker ps -a` 명령어로 실제 컨테이너 목록과 이름을 먼저 확인해야 한다는 것을 알게 되었다.
+
 
 [PS C:\Users\dlals26842658053\codyssey-workstation> docker ps -a
 CONTAINER ID   IMAGE             COMMAND                   CREATED             STATUS                           PORTS                                     NAMES
@@ -102,31 +127,74 @@ PS C:\Users\dlals26842658053\codyssey-workstation> docker logs codyssey-web
 
 
 
-문제 2. 파일 주소를 잘못 입력함
+## 문제 2. 컨테이너 내부 파일 경로 입력 오류
 
-어떤 문제가 있었나?
+### 1. 문제 상황
 
-파일 위치주소 하나 빼먹고 입력
+Docker 컨테이너 내부에 있는 웹 서버 파일을 확인하는 과정에서 경로를 잘못 입력하여 오류가 발생했다.
 
-잘못 입력한 명령어: docker exec codyssey-web ls /usr/share/nginx/html
+**오류 메시지를 기준으로 재구성한 잘못된 명령어**
 
+```bash
+docker exec codyssey-web ls /usr/nginx/html
+```
 
-실제 오류 메시지: ls: /usr/nginx/html: No such file or directory
+**기록된 오류 메시지**
 
+```text
+ls: /usr/nginx/html: No such file or directory
+```
 
--실패이유-
+### 2. 원인 가설
 
-파일이 있는 위치를 를 빼먹고 입력했다
+처음에는 파일이 없는 것으로 생각했지만, 파일 경로를 잘못 입력했을 가능성이 있다고 판단했다.
 
-해결방법 : docker exec codyssey-web ls /usr/share/nginx/html
+실제 경로에 `/share`가 빠져 있어 파일을 찾지 못한 것으로 추정했다.
 
-명령어사용해서 실제 파일 목록에서 index.html을 확인했다.
+### 3. 확인 과정
 
-해결한 명령어
+올바른 파일 경로로 다시 확인했다.
 
+```bash
+docker exec codyssey-web ls /usr/share/nginx/html
+```
+
+이 명령어로 `index.html` 파일이 존재하는 것을 확인했다.
+
+### 4. 해결 방법
+
+파일의 실제 내용을 확인하기 위해 다음 명령어를 실행했다.
+
+```bash
 docker exec codyssey-web cat /usr/share/nginx/html/index.html
+```
 
-최종 결과
+### 5. 최종 결과
+
+**실제 출력 결과 중 일부**
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Codyssey Workstation</title>
+</head>
+<body>
+    <h1>안녕하세요! 코디세이입니다.</h1>
+    <p>Docker 웹 서버 실행 성공!</p>
+    <p>내가 만든 첫 번째 웹사이트</p>
+</body>
+</html>
+```
+
+`index.html` 파일의 내용이 정상적으로 출력되는 것을 확인했다.
+
+### 6. 배운 점
+
+파일을 찾을 수 없다는 오류가 발생했을 때는 파일이 실제로 없는 것인지, 경로를 잘못 입력한 것인지 먼저 확인해야 한다는 것을 배웠다.
+
+이번 실습을 통해 컨테이너 내부의 파일 경로를 정확히 확인하는 것이 중요하다는 것을 알게 되었다.
 
 [PS C:\Users\dlals26842658053\codyssey-workstation> docker exec codyssey-web cat /usr/share/nginx/html/index.html
 
