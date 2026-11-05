@@ -382,10 +382,36 @@ git remote add origin https://github.com/hyeonla906/codyssey-workstation.git
 git remote -v
 ```
 
+### 1. Git 커밋 기록 확인
+
+다음 명령어를 사용하여 가장 최근 커밋 기록을 확인하였다.
+
+`git log -1 --oneline`
+
+![최근 Git 커밋 기록](screenshots/git-log-latest.png)
+
+
+### 2. Git Push 실행 결과
+
+git push origin main 명령어를 실행하여
+GitHub 원격 저장소의 동기화 상태를 확인하였다.
+
+![Git Push 실행 결과](screenshots/git-push-success.png)
+
+### 3. GitHub 파일 목록 확인
+
+GitHub 저장소의 Code 화면에서
+README.md, Dockerfile, app, logs, screenshots 등의
+파일과 폴더가 업로드되어 있는 것을 확인하였다.
+
+![GitHub 파일 목록](screenshots/github-file-list.png)
+
+
+
 - 로컬 Git 저장소가 존재했고, 현재 브랜치가 **`main`**이었다.
 - `git remote -v` 출력에서 GitHub 원격 저장소 주소가 등록된 것을 확인했다.
-- **[추가 필요]** 현재 받은 GitHub 화면은 파일이 올라가기 전 **빈 저장소(Quick setup)** 화면이다. 실제 `git push` 성공과 업로드된 파일 목록은 이번 자료로 확인할 수 없다.
-- `git --version`은 위 사진에서 확인됐다. **[추가 필요]** 커밋 기록(`git log -1 --oneline`)과 `git push` 성공 출력 및 업로드된 파일 목록은 여전히 확인되지 않았다.
+- 실제 `git push` 성공파일을 업로드 한사진과 연동하였다.
+- `git --version`은 위 사진에서 확인됐다.  커밋 기록(`git log -1 --oneline`)과 `git push` 성공 출력 및 업로드된 파일 목록 확인함
 
 ![Git main 브랜치 확인](screenshots/20-git.png)
 
@@ -416,22 +442,7 @@ curl.exe http://localhost:8080
 브라우저 접속: `http://localhost:8080`  
 
 
-### Git Push 및 GitHub 업로드 확인
 
-### 1. Git Push 실행 결과
-
-git push origin main 명령어를 실행하여
-GitHub 원격 저장소의 동기화 상태를 확인하였다.
-
-![Git Push 실행 결과](screenshots/git-push-success.png)
-
-### 2. GitHub 파일 목록 확인
-
-GitHub 저장소의 Code 화면에서
-README.md, Dockerfile, app, logs, screenshots 등의
-파일과 폴더가 업로드되어 있는 것을 확인하였다.
-
-![GitHub 파일 목록](screenshots/github-file-list.png)
 
 
 ## 13. 배운 점
