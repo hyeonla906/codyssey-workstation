@@ -1,29 +1,48 @@
 트러블슈팅 기록
 
-문제 1. 컨테이너 이름을 잘못 입력함
+문제 2. 컨테이너 내부 파일 경로 입력 오류
 
-어떤 문제가 있었나?
+1. 문제 상황
 
-실제 컨테이너 이름과 다르게 입력하여 로그를 확인하지 못하는 오류를 재현했다.
+Docker 컨테이너 내부의 웹 서버 파일을 확인하는 과정에서 경로를 잘못 입력하여 오류가 발생했다.
 
-잘못 입력한 명령어:
+잘못 입력한 명령어 (오류 메시지를 기준으로 재구성)
 
-docker logs codyssey-weeb
+docker exec codyssey-web ls /usr/nginx/html
 
-실제 오류 메시지:
+오류 메시지
 
-[Error response from daemon: No such container: codyssey-weeb]
+ls: /usr/nginx/html: No such file or directory
 
-실패이유 : 컨테이너 이름을 잘못 입력했을 가능성이 있다고 생각했다.
+2. 원인 확인
 
-해결방안
+처음에는 파일이 없는 것으로 생각했지만, 경로에 share가 빠졌을 가능성이 있다고 판단했다.
 
-docker ps -a
+3. 해결 방법
 
-목록에서 올바른 이름인 codyssey-web을 확인했다.
+올바른 경로로 다시 확인했다.
 
-고리고 명령어로 docker logs codyssey-web 입력했다
+docker exec codyssey-web ls /usr/share/nginx/html
 
+이후 실제 HTML 파일의 내용을 확인했다.
+
+docker exec codyssey-web cat /usr/share/nginx/html/index.html
+
+4. 최종 결과
+
+index.html 파일의 내용이 정상적으로 출력되었다.
+
+실제 출력 중 일부
+
+<h1>안녕하세요! 코디세이입니다.</h1>
+<p>Docker 웹 서버 실행 성공!</p>
+<p>내가 만든 첫 번째 웹사이트</p>
+
+5. 배운 점
+
+컨테이너 내부에서 파일을 찾을 수 없다는 오류가 발생하면 파일이 없는 것인지, 경로를 잘못 입력한 것인지 먼저 확인해야 한다는 것을 배웠다.
+
+이번에는 올바른 경로를 입력하여 HTML 파일이 정상적으로 존재하는 것을 확인했다.
 최종 결과
 
 [PS C:\Users\dlals26842658053\codyssey-workstation> docker ps -a
