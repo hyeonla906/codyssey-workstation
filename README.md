@@ -7,10 +7,10 @@
 
 | 항목 | 확인된 환경 |
 |---|---|
-| 운영체제 | Windows (PowerShell 기록상 Windows NT `10.0.26300.0`) |
+| 운영체제 | Windows (Windows NT `10.0.26300.0`) |
 | 편집기 | Visual Studio Code |
 | 명령어 창 | Windows PowerShell `5.1.26100.9711` |
-| Docker | **29.9.2**, Linux 컨테이너 (`desktop-linux`) |
+| Docker | **29.9.2**, Linux 컨테이너 |
 | Linux 실습 | Docker Ubuntu 이미지 |
 | 웹 서버 | `nginx:alpine` 기반 커스텀 이미지 `codyssey-web:v1` |
 | Git 브랜치 | `main` |
@@ -76,7 +76,7 @@ cd ..\..
 
 [터미널 실습 로그](logs/verified/01-terminal.txt)
 
-> **[추가 필요]** 프로젝트 최상위 폴더를 처음 생성한 `00-setup.txt`는 제공 자료에 없다. 폴더 구조는 사진으로 확인했지만 최초 생성 명령 기록은 별도 확인이 필요하다.
+
 
 ## 4. Linux 파일과 폴더 권한
 
@@ -114,7 +114,7 @@ docker exec permission-lab ls -ld /testdir
 
 ### 추가 검증 — 폴더 권한 `755` 확인 (2026-11-04)
 
-기존 `permission-lab` 컨테이너에서 아래 명령어를 실행해 폴더 권한을 다시 확인했다.
+기존 `permission-lab` 컨테이너에서 아래 명령어를 실행해 폴더 권한을 다시 확인.
 
 ```powershell
 docker exec permission-lab chmod 755 /testdir
@@ -133,7 +133,7 @@ drwxr-xr-x 2 root root 4096 Nov  4 05:24 /testdir
 
 [최초 권한 실습 로그](logs/verified/02-permissions.txt)
 
-> 위 추가 검증의 증거는 **사용자가 추가로 제공한 실제 화면 캡처**다. 별도 `02-permissions-recheck.txt` 로그는 아직 전달되지 않았으므로, 새 로그가 있는 것처럼 표시하지 않았다.
+
 
 ## 5. Docker 기본 점검과 컨테이너 운영
 
@@ -268,7 +268,7 @@ Copy-Item .\practice\index-backup.html .\app\index.html -Force
 
 [바인드 마운트 실습 로그](logs/verified/07-bind.txt)
 
-> 변경 후 `curl.exe`의 본문 출력은 제공된 로그에서 비어 있지만, **브라우저 변경 전후 사진**이 추가 증거를 제공한다.
+
 
 ## 9. Docker 볼륨 — 컨테이너 삭제 후 데이터 유지
 
@@ -318,7 +318,7 @@ SAVE-OK
 
 ![컨테이너 삭제 확인 및 새 컨테이너에서 SAVE-OK 재확인-](screenshots/17-volume-after.png)
 
-> 추가 화면 사진은 확인됐지만 별도 `08-volume-recheck.txt` 파일 원본은 이 채팅에 업로드되지 않았다. 처음 실습 로그에는 컨테이너 삭제와 이후 `SAVE-OK` 확인 과정이 남아 있다.
+
 
 [볼륨 실습 로그 — 삭제 후 SAVE-OK 출력 포함](logs/verified/08-volume.txt)
 
@@ -370,7 +370,7 @@ git version 2.56.0.windows.4
 
 ![Git 설치 버전 확인 — git version 2.56.0.windows.4](screenshots/23-git-version.png)
 
-Git 버전은 새로 제공한 **터미널 화면 캡처**로 확인했다. 별도 `10-git-recheck.txt`의 원본은 아직 업로드되지 않았으므로, 그 로그가 ZIP에 포함됐다고 표기하지 않는다.
+Git 버전은 새로 제공한 **터미널 화면 캡처**로 확인했다.
 
 ### Git 저장소와 GitHub 원격 주소
 
@@ -399,7 +399,7 @@ git remote -v
 
 최근 터미널 대화에서 `git restore -- .`를 실행한 뒤 `deleted:` 항목이 사라지고 `a/` 폴더 및 `02-permissions-recheck.txt`, `08-volume-recheck.txt`, `10-git-recheck.txt`가 **추적되지 않은 파일**로 남았다. 이는 업로드 실패를 의미하지는 않지만, **GitHub에 반영됐다는 증거도 아니다.** 또한 복구 후 로컬 `README.md`의 크기가 0바이트로 확인되었으므로, 아래의 새 README를 적용하고 사진 폴더를 복사한 다음 다시 Git 상태를 확인해야 한다. 이 내용은 사용자 제공 터미널 결과를 근거로 작성했다.
 
-> `a/` 폴더에는 과제 자료가 중첩되어 있다. 내부 내용 확인 및 백업 전에는 삭제하지 않고, 업로드할 때는 필요한 경로만 선택해 추가한다.
+
 
 ## 12. 다른 컴퓨터에서 웹 서버 실행하기
 
@@ -414,7 +414,25 @@ curl.exe http://localhost:8080
 ```
 
 브라우저 접속: `http://localhost:8080`  
-**[추가 필요]** GitHub에 프로젝트 파일을 올린 뒤 다른 위치에서도 이 방법이 작동하는지 확인한다. 같은 컨테이너 이름이나 8080 포트가 이미 사용 중인 경우 충돌을 먼저 해결해야 한다.
+
+
+### Git Push 및 GitHub 업로드 확인
+
+### 1. Git Push 실행 결과
+
+git push origin main 명령어를 실행하여
+GitHub 원격 저장소의 동기화 상태를 확인하였다.
+
+![Git Push 실행 결과](screenshots/git-push-success.png)
+
+### 2. GitHub 파일 목록 확인
+
+GitHub 저장소의 Code 화면에서
+README.md, Dockerfile, app, logs, screenshots 등의
+파일과 폴더가 업로드되어 있는 것을 확인하였다.
+
+![GitHub 파일 목록](screenshots/github-file-list.png)
+
 
 ## 13. 배운 점
 
@@ -435,7 +453,6 @@ curl.exe http://localhost:8080
 - [x] `git --version` 실제 출력 사진 확인 — `2.56.0.windows.4`
 - [ ] **[추가 필요]** `git push` 성공 확인
 - [ ] **[추가 필요]** GitHub에서 실제 파일이 보이는 최종 저장소 사진
-- [ ] **[추가 필요]** 최초 프로젝트 폴더 생성 로그 `00-setup.txt`가 있다면 추가
 - [ ] **[추가 필요]** 공개 전 PowerShell 기록 및 사진의 사용자 이름, 컴퓨터 이름, 경로 등 개인정보 확인
 - [ ] **[추가 필요]** GitHub에 `README.md`, `Dockerfile`, `app/index.html`, `logs/`, `screenshots/`가 올라왔는지 검
 
