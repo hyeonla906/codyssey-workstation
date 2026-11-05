@@ -84,12 +84,12 @@ cd ..\..
 
 Ubuntu 컨테이너 안에서 파일 1개와 폴더 1개의 사용 권한을 확인하고 바꾸는 방법을 연습했다.
 
-| 숫자 | 뜻 | 실제 증거 |
+| **숫자** | **뜻** | **사진** |
 |---|---|---|
-| `600` | 주인만 읽기·쓰기 (`-rw-------`) | (screenshots/03-permission-file.png) |
-| `644` | 주인은 읽기·쓰기, 나머지는 읽기 (`-rw-r--r--`) | (screenshots/03-permission-file.png) |
-| `700` | 폴더 주인만 모든 권한 (`drwx------`) | (screenshots/04-permission-folder.png) |
-| `755` | 주인은 모든 권한, 나머지는 읽기·진입 (`drwxr-xr-x`) | (screenshots/04-permission-folder-755.png) |
+| `600` | 주인만 읽기·쓰기 (`-rw-------`) | [600 증거 사진 보기](screenshots/03-permission-file.png) |
+| `644` | 주인은 읽기·쓰기, 나머지는 읽기 (`-rw-r--r--`) | [644 사진 보기](screenshots/03-permission-file.png) |
+| `700` | 폴더 주인만 모든 권한 (`drwx------`) | [700 사진 보기](screenshots/04-permission-folder.png) |
+| `755` | 주인은 모든 권한, 나머지는 읽기·진입(`drwxr-xr-x`) | [755 사진 보기](screenshots04-permission-folder-755.png) |
 
 ### 실행 명령
 
