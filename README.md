@@ -15,7 +15,7 @@
 | 웹 서버 | `nginx:alpine` 기반 커스텀 이미지 `codyssey-web:v1` |
 | Git 브랜치 | `main` |
 | Git 버전 | **2.56.0.windows.4** (`git --version` 결과 사진 확인) |
-| GitHub | [hyeonla906/codyssey-workstation](https://github.com/hyeonla906/codyssey-workstation) — 저장소 생성·원격 주소 설정 확인, 
+| GitHub | [hyeonla906/codyssey-workstation](https://github.com/hyeonla906/codyssey-workstation)
 
 ![Docker 버전과 Client 정보](screenshots/05-docker-client.png)
 
@@ -36,9 +36,9 @@
 - [x] 트러블슈팅 2건 및 해결 과정 정리
 - [x] Git 로컬 `main` 브랜치와 GitHub 원격 저장소 주소 확인
 - [x] Git 버전 `2.56.0.windows.4` 실제 출력 사진 확인
-- [ ] **[추가 필요]** `git push` 성공 및 GitHub 업로드된 파일 목록 확인
+- [x]  `git push` 성공 및 GitHub 업로드된 파일 목록 확인
 - [x] 컨테이너 삭제 후 볼륨 데이터(`SAVE-OK`) 재확인 사진 확보
-- [ ] **[추가 필요]** GitHub 공개 전 사진·로그 개인정보 점검
+- [ ]  GitHub 공개 전 사진·로그 개인정보 점검
 
 ## 3. 프로젝트 폴더 및 실습
 
@@ -294,7 +294,7 @@ docker volume inspect codyssey-data
 
 ![컨테이너 삭제 전 SAVE-OK](screenshots/16-volume-before.png)
 
-### 추가 검증 — 컨테이너 삭제 후 데이터 재확인 (2026-11-04)
+### 추가 검증 — 컨테이너 삭제 후 데이터 재확인 
 
 다시 실행한 명령에서 기존 `volume-first` 컨테이너가 목록에 없음을 확인했다.
 
@@ -415,15 +415,10 @@ README.md, Dockerfile, app, logs, screenshots 등의
 
 ![Git main 브랜치 확인](screenshots/20-git.png)
 
-![GitHub 저장소 생성 화면 — 업로드 전, 아직 파일 목록 없음](screenshots/21-github-empty.png)
 
 ![GitHub 원격 주소 확인](screenshots/22-github-remote.png)
 
-[GitHub 연결 로그](logs/verified/11-github-setup.txt)
 
-### 로컬 Git 상태 관련 메모
-
-최근 터미널 대화에서 `git restore -- .`를 실행한 뒤 `deleted:` 항목이 사라지고 `a/` 폴더 및 `02-permissions-recheck.txt`, `08-volume-recheck.txt`, `10-git-recheck.txt`가 **추적되지 않은 파일**로 남았다. 이는 업로드 실패를 의미하지는 않지만, **GitHub에 반영됐다는 증거도 아니다.** 또한 복구 후 로컬 `README.md`의 크기가 0바이트로 확인되었으므로, 아래의 새 README를 적용하고 사진 폴더를 복사한 다음 다시 Git 상태를 확인해야 한다. 이 내용은 사용자 제공 터미널 결과를 근거로 작성했다.
 
 
 
@@ -457,18 +452,6 @@ curl.exe http://localhost:8080
 - **Docker 볼륨:** 컨테이너와 별도로 데이터를 저장하는 공간.
 - **Git / GitHub:** 파일의 변경 기록 관리 / 그 기록을 인터넷에서 보관·공유.
 
-## 14. 제출 전 직접 채워야 할 것
 
-- [x] Linux 폴더 `755` 최종 출력이 보이는 사진 및 검증 결과 추가 완료
-- [x] 컨테이너 삭제 **후** `SAVE-OK` 출력 화면 사진까지 확인
-- [x] `git --version` 실제 출력 사진 확인 — `2.56.0.windows.4`
-- [ ] **[추가 필요]** `git push` 성공 확인
-- [ ] **[추가 필요]** GitHub에서 실제 파일이 보이는 최종 저장소 사진
-- [ ] **[추가 필요]** 공개 전 PowerShell 기록 및 사진의 사용자 이름, 컴퓨터 이름, 경로 등 개인정보 확인
-- [ ] **[추가 필요]** GitHub에 `README.md`, `Dockerfile`, `app/index.html`, `logs/`, `screenshots/`가 올라왔는지 검
 
-## 15. 최종 정리
 
-**확인된 작업:** 파일 관리, Linux 파일 권한 `600`·`644`와 폴더 권한 `700`·`755` 검증, Docker 29.9.2 실행, Ubuntu/hello-world, NGINX 이미지 빌드, 8080 웹 접속, 8081 바인드 마운트 변경 전·후, 컨테이너 삭제 후 볼륨 데이터 유지(원본 로그와 재검증 사진), 트러블슈팅 2건, Git `main` 및 GitHub 원격 주소 설정.
-
-**아직 제출 완료로 판단하지 않은 항목:** 최종 GitHub 업로드(`git push`) 성공 증거와 실제 파일 목록. Git 버전은 **2.56.0.windows.4**로 확인했다. GitHub 공개 전 개인정보 확인도 필요하다.
