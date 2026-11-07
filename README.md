@@ -1,6 +1,19 @@
 # Codyssey Development Workstation
 
-Windows PowerShell에서 CLI, Linux 권한, Docker, Git/GitHub 실습.
+Windows PowerShell에서 터미널, Linux 권한, Docker, Git/GitHub 실습. 실행 명령과 결과는 각 항목의 로그·화면에 기록.
+
+## 수행 체크리스트
+
+- [x] 터미널 기본 조작 및 파일 관리
+- [x] Linux 파일·디렉터리 권한 변경
+- [x] Docker 설치 점검 및 운영 명령
+- [x] hello-world / Ubuntu 컨테이너
+- [x] Dockerfile 작성·이미지 빌드·웹 서버 실행
+- [x] 포트 매핑 및 브라우저 접속
+- [x] 바인드 마운트 변경 반영
+- [x] Docker 볼륨 데이터 유지
+- [x] Git 설정·GitHub Push·VS Code GitHub 로그인
+- [x] 오류 해결 2건
 
 ## 1. 환경 및 실행
 
@@ -44,7 +57,7 @@ Get-ChildItem backup
 cd ..\..
 ```
 
-**결과:** `Hello Codyssey` 출력, 이동·삭제 전후 파일 목록 확인.
+**결과:** `Hello Codyssey` 출력, 이동·삭제 전후 파일 목록 확인. `pwd`, `Get-ChildItem -Force`, `New-Item empty.txt -ItemType File` 실행 기록은 아래 로그에서 확인.
 
 ![CLI 실행 결과](screenshots/02-terminal.png)
 
@@ -83,15 +96,26 @@ docker exec permission-lab ls -ld /testdir
 ```powershell
 docker --version
 docker info
+docker pull ubuntu
 docker run hello-world
 docker run -it --name ubuntu-practice ubuntu bash
 docker images
 docker ps -a
+docker run -d --name ubuntu-running ubuntu sleep infinity
+docker exec ubuntu-running echo Hello-from-exec
+docker stop ubuntu-running
+docker start ubuntu-running
+docker logs ubuntu-running
+docker stats --no-stream
 ```
 
 **확인:** Docker `29.9.2`, Server `OSType: linux`, `hello-world` 실행, 이미지·컨테이너 목록.
 
 **차이:** 이미지 = 실행에 필요한 파일 묶음 / 컨테이너 = 이미지를 실행한 작업 공간.
+
+**실행 방식:** `-it`는 터미널에 연결해 명령 실행. `-d`는 백그라운드 실행. `exec`는 실행 중인 컨테이너에 명령 전달. `stop` 후 `start`로 다시 실행 가능.
+
+**운영 기록:** 이미지 다운로드·조회, 컨테이너 실행·중지·재시작, 로그·리소스 확인. 내부 `echo` 실행도 기록.
 
 ![Docker Server 상태](screenshots/05-docker-server.png)
 
@@ -101,11 +125,11 @@ docker ps -a
 
 ![이미지·컨테이너 목록](screenshots/08-containers.png)
 
-[Docker 점검 기록](logs/verified/03-docker.txt) · [컨테이너 실행 기록](logs/verified/04-containers.txt)
+[Docker 점검 기록](logs/verified/03-docker.txt) · [Ubuntu 실행·Docker 운영 기록](logs/verified/04-containers.txt)
 
 ## 5. Dockerfile 및 웹 서버
 
-**Dockerfile** — `nginx:alpine`에 HTML 파일 추가.
+**Dockerfile** — `nginx:alpine`을 기본 이미지로 선택. 기본 웹페이지 대신 `app/index.html`을 넣어 직접 만든 페이지 표시.
 
 ```dockerfile
 FROM nginx:alpine
@@ -191,13 +215,21 @@ git push origin main
 
 **확인:** `main` 브랜치, `origin` 원격 주소, 사용자 이름·이메일 설정, GitHub 업로드.
 
-**구분:** `git add` = 변경 파일 선택 / `git commit` = 로컬 기록 저장 / `git push` = GitHub 반영.
+**구분:** Git = PC에서 변경 이력 관리 / GitHub = 원격 저장소. `git add` = 변경 파일 선택 / `git commit` = 로컬 기록 / `git push` = GitHub 반영.
+
+**추가 확인:** VS Code GitHub 계정 `hyeonla906` 로그인. Git 기본 브랜치 설정 `main`.
 
 ![원격 저장소 확인](screenshots/22-github-remote.png)
 
 ![Git 사용자 설정 확인](screenshots/24-git-config.png)
 
 ![GitHub Push 결과](screenshots/25-git-push-terminal.png)
+
+![VS Code GitHub 로그인 확인](screenshots/27-vscode-github-login.png.png)
+
+![Git 기본 브랜치 main 설정 확인](screenshots/28-git-default-branch.png.png)
+
+[Git 실행·Push 기록](logs/verified/10-git-recheck.txt)
 
 ## 9. 오류 해결
 
@@ -211,18 +243,6 @@ git push origin main
 ![NGINX 경로 오류](screenshots/19-error-path.png)
 
 [오류 해결 상세 기록](logs/troubleshooting.md) · [실행 기록](logs/verified/09-troubleshooting.txt)
-
-## 10. 접속 오류 점검
-
-**점검 순서:** 컨테이너 실행 → HTTP 응답 → 포트 사용 확인.
-
-```powershell
-docker ps
-curl.exe http://localhost:8080
-Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue
-```
-
-**포트 충돌:** `OwningProcess`의 PID로 `Get-Process -Id 1234` 확인 (`1234`는 조회된 PID로 변경). 기존 프로그램 확인 후 컨테이너 중지 또는 PC 포트 변경.
 
 ## 파일 구성
 
