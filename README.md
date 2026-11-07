@@ -1,47 +1,17 @@
 # Codyssey Development Workstation
 
-Windows PowerShell 기반 CLI·Linux 권한·Docker·Git/GitHub 실습 기록.
+Windows PowerShell에서 CLI, Linux 권한, Docker, Git/GitHub 실습.
 
-## 1. 실습 결과
+## 1. 환경 및 실행
 
-| 항목 | 확인 결과 | 관련 위치 |
-|---|---|---|
-| CLI | 파일 생성·복사·이동·삭제, 내용 출력 | [CLI](#3-cli-파일-관리) |
-| Linux 권한 | 파일 `600`·`644`, 폴더 `700`·`755` | [권한](#4-linux-권한) |
-| Docker | Linux 엔진, 이미지·컨테이너 목록, `hello-world` | [Docker](#5-docker-기본-점검) |
-| 웹 서버 | `codyssey-web:v1` 빌드, `localhost:8080` 접속 | [웹 서버](#6-dockerfile--웹-서버) |
-| 바인드 마운트 | HTML 변경 전·후 화면 비교 (`8081`) | [바인드 마운트](#7-바인드-마운트) |
-| 볼륨 | 컨테이너 삭제 후 `SAVE-OK` 재확인 | [볼륨](#8-볼륨-데이터-유지) |
-| Git/GitHub | `main`, `origin` 확인, `git push` 실행 | [Git](#9-gitgithub) |
-| 오류 해결 | 컨테이너 이름·NGINX 파일 경로 오류 2건 | [오류 해결](#10-오류-해결) |
-
-### 실행 환경
-
-| 항목 | 환경 |
+| 항목 | 실습 환경 |
 |---|---|
 | OS / 터미널 | Windows / PowerShell 5.1 |
 | 편집기 | VS Code |
 | Docker | 29.9.2 / Linux 컨테이너 |
 | Git | 2.56.0.windows.4 / `main` |
-| 웹 서버 | `nginx:alpine` 기반 커스텀 이미지 |
 
-### 폴더 구성
-
-```text
-Dockerfile                이미지 빌드 설정
-app/index.html            웹페이지
-practice/                 CLI 실습 파일
-logs/verified/            터미널 실행 로그
-logs/troubleshooting.md   오류 해결 과정
-screenshots/              실습 사진
-README.md                 실행 방법·확인 결과
-```
-
-**구성:** 웹 파일(`app`), 이미지 설정(`Dockerfile`), 로그(`logs`), 사진(`screenshots`) 분리.
-
-## 2. 실행 방법
-
-**환경:** Docker Desktop(Linux 엔진), PowerShell.
+**웹 서버 실행** — Docker Desktop 실행 후 PowerShell에서 입력.
 
 ```powershell
 git clone https://github.com/hyeonla906/codyssey-workstation.git
@@ -51,31 +21,17 @@ docker run -d --name codyssey-web -p 8080:80 codyssey-web:v1
 curl.exe http://localhost:8080
 ```
 
-**결과 확인:** `http://localhost:8080` 웹페이지 표시.
+**결과:** `http://localhost:8080`에서 HTML 응답 확인.
 
-**중복 확인:** 컨테이너 이름 충돌 시 `docker ps -a`로 조회 후 이름 변경. 포트 충돌 시 호스트 포트 변경.
+**연결:** PC `8080` → 컨테이너 `80` / 바인드 마운트는 PC `8081` → 컨테이너 `80`.
 
-### 연결 정보
+## 2. CLI 파일 관리
 
-| 항목 | 연결 | 용도 |
-|---|---|---|
-| 웹 서버 | PC `8080` → 컨테이너 `80` | 기본 웹페이지 |
-| 바인드 마운트 | PC `8081` → 컨테이너 `80` | 파일 변경 반영 |
-| 폴더 연결 | PC `app` → `/usr/share/nginx/html` | HTML 공유 |
-| Docker 볼륨 | `codyssey-data` → `/data` | 컨테이너 삭제 후 파일 보관 |
-
-**포트 연결:** 컨테이너는 별도 네트워크 네임스페이스 사용. `-p 8080:80` → PC `8080`에서 컨테이너 `80`으로 연결. `EXPOSE 80`은 포트 공개 설정이 아님.
-
-## 3. CLI 파일 관리
-
-**실습:** 파일 생성·조회·복사·이동·삭제.
+**실행:** 파일 생성 → 내용 확인 → 복사 → 이름 변경 → 이동 → 삭제.
 
 ```powershell
-pwd
-Get-ChildItem -Force
 mkdir practice\lesson1
 cd practice\lesson1
-New-Item empty.txt -ItemType File
 "Hello Codyssey" | Set-Content hello.txt
 Get-Content hello.txt
 Copy-Item hello.txt copy.txt
@@ -88,17 +44,15 @@ Get-ChildItem backup
 cd ..\..
 ```
 
-**결과:** `Get-Content hello.txt` → `Hello Codyssey`. 복사·이동·삭제 후 파일 목록 확인.
+**결과:** `Hello Codyssey` 출력, 이동·삭제 전후 파일 목록 확인.
 
-![작업 폴더](screenshots/01-setup.png)
+![CLI 실행 결과](screenshots/02-terminal.png)
 
-![터미널 실행 결과](screenshots/02-terminal.png)
+[터미널 전체 기록](logs/verified/01-terminal.txt)
 
-[실행 로그](logs/verified/01-terminal.txt)
+## 3. Linux 파일·폴더 권한
 
-## 4. Linux 권한
-
-**실습:** Ubuntu 컨테이너에서 파일·폴더 권한 변경 및 조회.
+**실행:** Ubuntu 컨테이너에서 권한 변경 후 `ls`로 확인.
 
 ```powershell
 docker run -d --name permission-lab ubuntu sleep infinity
@@ -114,87 +68,44 @@ docker exec permission-lab chmod 755 /testdir
 docker exec permission-lab ls -ld /testdir
 ```
 
-| 권한 | 소유자 | 그룹 | 기타 사용자 | 표시 |
-|---|---|---|---|---|
-| `600` | 읽기·쓰기 | 없음 | 없음 | `-rw-------` |
-| `644` | 읽기·쓰기 | 읽기 | 읽기 | `-rw-r--r--` |
-| `700` | 읽기·쓰기·실행 | 없음 | 없음 | `drwx------` |
-| `755` | 읽기·쓰기·실행 | 읽기·실행 | 읽기·실행 | `drwxr-xr-x` |
+**권한:** `r=4`, `w=2`, `x=1`. `755` = 소유자 `rwx`, 그룹·다른 사용자 `r-x`.
 
-**권한 계산:** `r=4`, `w=2`, `x=1` → `755 = rwx / r-x / r-x`. 폴더의 `x`는 진입 권한.
+**결과:** 파일 `600 → 644`, 폴더 `700 → 755` (`drwxr-xr-x`).
 
-**결과:** `ls -ld /testdir` → `drwxr-xr-x` (`755`).
+![파일 권한 변경](screenshots/03-permission-file.png)
 
-![파일 권한 600·644](screenshots/03-permission-file.png)
+![폴더 755 확인](screenshots/04-permission-folder-755.png)
 
-![폴더 권한 700·755](screenshots/04-permission-folder.png)
+[권한 실행 기록](logs/verified/02-permissions.txt)
 
-![폴더 권한 755 최종 확인](screenshots/04-permission-folder-755.png)
-
-[권한 실행 로그](logs/verified/02-permissions.txt)
-
-## 5. Docker 기본 점검
-
-### 5-1. 엔진 상태
+## 4. Docker 기본 점검
 
 ```powershell
 docker --version
 docker info
-```
-
-**실행 결과:**
-
-```text
-Docker version 29.9.2, build a82e528
-Server Version: 29.9.2
-OSType: linux
-```
-
-**확인:** Docker Linux 엔진 실행.
-
-![Docker 버전·Client 정보](screenshots/05-docker-client.png)
-
-![Docker Server 정보·OSType linux](screenshots/05-docker-server.png)
-
-[Docker 실행 기록](logs/verified/03-docker.txt) · 상세 출력은 위 사진.
-
-### 5-2. 이미지·컨테이너
-
-```powershell
-docker pull ubuntu
 docker run hello-world
 docker run -it --name ubuntu-practice ubuntu bash
 docker images
-docker ps
 docker ps -a
-docker run -d --name ubuntu-running ubuntu sleep infinity
-docker exec ubuntu-running echo Hello-from-exec
-docker stop ubuntu-running
-docker start ubuntu-running
 ```
 
-**실행 결과:** `hello-world` → `Hello from Docker!`. `docker images` 출력 일부:
+**확인:** Docker `29.9.2`, Server `OSType: linux`, `hello-world` 실행, 이미지·컨테이너 목록.
 
-```text
-hello-world:latest
-ubuntu:latest
-```
+**차이:** 이미지 = 실행에 필요한 파일 묶음 / 컨테이너 = 이미지를 실행한 작업 공간.
 
-**컨테이너 확인:** `docker ps -a` → 실행·중지된 컨테이너 목록.
+![Docker Server 상태](screenshots/05-docker-server.png)
 
-**이미지·컨테이너:** 이미지 = 실행 환경 저장본, 컨테이너 = 이미지의 실행 인스턴스. `docker build` = 이미지 생성, `docker run` = 컨테이너 실행.
+![hello-world 실행](screenshots/06-hello-world.png)
 
-![hello-world 실행 결과](screenshots/06-hello-world.png)
+![Ubuntu 컨테이너 실습](screenshots/07-ubuntu.png)
 
-![Ubuntu 내부 명령 실행](screenshots/07-ubuntu.png)
+![이미지·컨테이너 목록](screenshots/08-containers.png)
 
-![docker images 및 docker ps -a 출력](screenshots/08-containers.png)
+[Docker 점검 기록](logs/verified/03-docker.txt) · [컨테이너 실행 기록](logs/verified/04-containers.txt)
 
-[컨테이너 실행 로그](logs/verified/04-containers.txt) · 이미지·컨테이너 목록은 위 사진.
+## 5. Dockerfile 및 웹 서버
 
-## 6. Dockerfile · 웹 서버
-
-**Dockerfile**
+**Dockerfile** — `nginx:alpine`에 HTML 파일 추가.
 
 ```dockerfile
 FROM nginx:alpine
@@ -202,40 +113,29 @@ COPY app/index.html /usr/share/nginx/html/index.html
 EXPOSE 80
 ```
 
-- `FROM`: 기본 이미지 선택
-- `COPY`: HTML 파일을 이미지에 복사
-- `EXPOSE`: 컨테이너 내부 포트 표시
-
-**빌드·실행**
+`FROM` = 기본 이미지 / `COPY` = HTML 복사 / `EXPOSE` = 내부 사용 포트 표시.
 
 ```powershell
 docker build -t codyssey-web:v1 .
-docker images
 docker run -d --name codyssey-web -p 8080:80 codyssey-web:v1
 docker ps
 docker logs codyssey-web
 curl.exe http://localhost:8080
 ```
 
-**빌드 결과:** `naming to docker.io/library/codyssey-web:v1` → `unpacking to docker.io/library/codyssey-web:v1`.
+**결과:** `codyssey-web:v1` 이미지 빌드, 웹페이지 응답, NGINX 요청 로그에서 HTTP `200` 확인.
 
-**접속 결과:** `localhost:8080` → HTML 응답, NGINX `GET /` → HTTP `200`.
+**포트:** 컨테이너는 별도 네트워크 공간 사용. `-p 8080:80`으로 PC에서 접속 가능. `EXPOSE 80`만으로는 포트가 연결되지 않음.
 
-![HTML 작성](screenshots/09-html-code.png)
+![이미지 빌드](screenshots/11-web-build.png)
 
-![Dockerfile](screenshots/10-dockerfile.png)
+![8080 웹페이지](screenshots/12-browser.png)
 
-![이미지 빌드 출력](screenshots/11-web-build.png)
+[웹 서버 실행 기록](logs/verified/06-webserver.txt)
 
-![8080 웹페이지 접속](screenshots/12-browser.png)
+## 6. 바인드 마운트
 
-![컨테이너 실행·로그](screenshots/13-web-operations.png)
-
-[웹 서버 빌드·실행 로그](logs/verified/06-webserver.txt)
-
-## 7. 바인드 마운트
-
-**실습:** PC `app` 폴더 ↔ 컨테이너 NGINX 웹 폴더 연결. HTML 변경 전·후 비교.
+**실행:** PC의 `app` 폴더를 컨테이너 웹 폴더에 연결.
 
 ```powershell
 $appPath = (Resolve-Path .\app).Path
@@ -244,21 +144,20 @@ curl.exe http://localhost:8081
 docker inspect codyssey-bind --format '{{json .Mounts}}'
 ```
 
-**결과:** `localhost:8081`에 HTML 변경 반영. `readonly` → 컨테이너 내부 쓰기 제한.
+**결과:** PC의 HTML 변경 전·후 내용이 `localhost:8081`에 반영.
 
-**경로:** `app/index.html` = 프로젝트 기준 상대경로. `$appPath` = `Resolve-Path`로 확인한 PC 절대경로. `/usr/share/nginx/html` = 컨테이너 내부 절대경로.
+**경로:** `app`은 프로젝트 기준 상대경로. `$appPath`는 PC 절대경로. `/usr/share/nginx/html`은 컨테이너 내부 경로. `readonly`는 컨테이너 안에서 쓰기 제한.
 
-![바인드 마운트 변경 전](screenshots/14-bind-before.png)
+![변경 전](screenshots/14-bind-before.png)
 
-![바인드 마운트 변경 후](screenshots/15-bind-after.png)
+![변경 후](screenshots/15-bind-after.png)
 
-[바인드 마운트 로그](logs/verified/07-bind.txt) · 사진과 로그는 촬영 시점이 다름.
+[바인드 마운트 기록](logs/verified/07-bind.txt)
 
-## 8. 볼륨 데이터 유지
+## 7. Docker 볼륨: 컨테이너 삭제 전·후
 
 ```powershell
 docker volume create codyssey-data
-docker volume ls
 docker run -d --name volume-first --mount type=volume,source=codyssey-data,target=/data ubuntu sleep infinity
 docker exec volume-first sh -c "echo SAVE-OK > /data/check.txt"
 docker exec volume-first cat /data/check.txt
@@ -268,76 +167,54 @@ docker run --rm --mount type=volume,source=codyssey-data,target=/data ubuntu cat
 docker volume inspect codyssey-data
 ```
 
-**결과:** `volume-first` 삭제 후 새 컨테이너에서 `SAVE-OK` 출력. 데이터 유지 확인.
+**결과:** `volume-first` 삭제 후 새 컨테이너에서 `SAVE-OK` 재출력. 볼륨 `codyssey-data` 유지.
 
-**볼륨 정보:** `codyssey-data` / `local` / `/var/lib/docker/volumes/codyssey-data/_data` (`docker volume inspect`).
+**저장 위치 확인:** `docker volume inspect` → `/var/lib/docker/volumes/codyssey-data/_data`.
 
-| 방식 | 장점 | 주의 사항 |
-|---|---|---|
-| 바인드 마운트 | PC 파일 변경을 컨테이너에서 즉시 확인 | PC 폴더 경로에 영향받음 |
-| Docker 볼륨 | 컨테이너 삭제 후에도 데이터 보관 | PC에서 파일을 직접 수정하기는 불편 |
+**차이:** 바인드 마운트는 PC 파일을 직접 연결 / 볼륨은 Docker가 데이터를 별도로 관리.
 
-![볼륨 삭제 전](screenshots/16-volume-before.png)
+![컨테이너 삭제 전](screenshots/16-volume-before.png)
 
-![컨테이너 삭제 후 볼륨 확인](screenshots/17-volume-after.png)
+![컨테이너 삭제 후 데이터 확인](screenshots/17-volume-after.png)
 
-[볼륨 실습 로그](logs/verified/08-volume.txt)
+[볼륨 실행 기록](logs/verified/08-volume.txt)
 
-## 9. Git/GitHub
+## 8. Git / GitHub
 
 ```powershell
-git --version
 git status
 git remote -v
+git config --list | Select-String '^(user\.name|user\.email)='
 git log -1 --oneline
 git push origin main
 ```
 
-**결과:** Git `2.56.0.windows.4`, `main` 브랜치, `origin` 연결, `git push origin main` 실행.
+**확인:** `main` 브랜치, `origin` 원격 주소, 사용자 이름·이메일 설정, GitHub 업로드.
 
-```text
-origin  https://github.com/hyeonla906/codyssey-workstation.git (fetch)
-origin  https://github.com/hyeonla906/codyssey-workstation.git (push)
-```
+**구분:** `git add` = 변경 파일 선택 / `git commit` = 로컬 기록 저장 / `git push` = GitHub 반영.
 
-**Git 작업:** `status` → `add` → `commit` → `push`. `commit` = 로컬 기록, `push` = GitHub 반영.
-
-![Git 버전](screenshots/23-git-version.png)
-
-![현재 브랜치](screenshots/20-git.png)
-
-![git remote -v 출력](screenshots/22-github-remote.png)
-
-![GitHub Push 실행 결과](screenshots/25-git-push-terminal.png)
-
-**원격 저장소 확인:** `git remote -v` 출력 사진.
-
-### Git 사용자 설정 확인
-
-```powershell
-git config --list | Select-String '^(user\.name|user\.email)='
-```
-
-**설정 확인:** 'user.name'=hyeonla906 'user.email'=hyeonla906@gmail.com 출력. 
+![원격 저장소 확인](screenshots/22-github-remote.png)
 
 ![Git 사용자 설정 확인](screenshots/24-git-config.png)
 
-## 10. 오류 해결
+![GitHub Push 결과](screenshots/25-git-push-terminal.png)
 
-| 발생 | 원인 가설 | 확인 | 조치·결과 |
-|---|---|---|---|
-| `No such container: codyssey-weeb` | 컨테이너 삭제 또는 이름 오타 | `docker ps -a`로 실제 이름 `codyssey-web` 확인 | `docker logs codyssey-web` → NGINX 로그 확인 |
-| `No such file or directory` | NGINX 내부 폴더 경로 오타 | `/usr/share/nginx/html` 확인 | `docker exec codyssey-web cat /usr/share/nginx/html/index.html` → HTML 출력 |
+## 9. 오류 해결
 
-![컨테이너 이름 오타 수정](screenshots/18-error-name.png)
+| 발생 | 원인 | 확인·수정 |
+|---|---|---|
+| `No such container: codyssey-weeb` | 컨테이너 이름 오타 | `docker ps -a` → `docker logs codyssey-web` |
+| `No such file or directory` | NGINX 경로의 `share` 누락 | `/usr/share/nginx/html/index.html` 경로로 재확인 |
 
-![NGINX 내부 파일 경로 수정](screenshots/19-error-path.png)
+![컨테이너 이름 오류](screenshots/18-error-name.png)
 
-[오류 해결 기록](logs/troubleshooting.md) · [실행 로그](logs/verified/09-troubleshooting.txt)
+![NGINX 경로 오류](screenshots/19-error-path.png)
 
-## 11. 포트 접속 문제 확인
+[오류 해결 상세 기록](logs/troubleshooting.md) · [실행 기록](logs/verified/09-troubleshooting.txt)
 
-**접속 점검:** 컨테이너 상태 → HTTP 응답 → 포트 사용 현황.
+## 10. 접속 오류 점검
+
+**점검 순서:** 컨테이너 실행 → HTTP 응답 → 포트 사용 확인.
 
 ```powershell
 docker ps
@@ -345,14 +222,16 @@ curl.exe http://localhost:8080
 Get-NetTCPConnection -LocalPort 8080 -State Listen -ErrorAction SilentlyContinue
 ```
 
-- `docker ps`: 컨테이너 상태·포트 확인 (`8080→80`)
-- `curl.exe`: HTTP 응답 확인
-- `Get-NetTCPConnection`: 포트 `8080`의 프로세스 ID(`OwningProcess`) 확인
-- 포트 충돌 확인: `Get-Process -Id 1234` (`1234` = 조회된 PID)
-- 충돌 해결: 기존 컨테이너 중지 또는 호스트 포트 변경
+**포트 충돌:** `OwningProcess`의 PID로 `Get-Process -Id 1234` 확인 (`1234`는 조회된 PID로 변경). 기존 프로그램 확인 후 컨테이너 중지 또는 PC 포트 변경.
 
-**대체 포트 예시 (미실행):**
+## 파일 구성
 
-```powershell
-docker run -d --name codyssey-web-alt -p 8082:80 codyssey-web:v1
+```text
+Dockerfile                웹 서버 이미지 설정
+app/index.html            웹페이지
+practice/                 CLI 실습 파일
+logs/verified/            실행 기록
+logs/troubleshooting.md   오류 해결 내용
+screenshots/              실행 사진
+README.md                 실습 요약
 ```
